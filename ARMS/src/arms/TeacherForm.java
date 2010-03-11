@@ -8,8 +8,10 @@
  *
  * Created on Mar 11, 2010, 12:32:57 AM
  */
-
 package arms;
+
+import java.util.Date;
+import org.jdesktop.application.Action;
 
 /**
  *
@@ -18,8 +20,18 @@ package arms;
 public class TeacherForm extends javax.swing.JFrame {
 
     /** Creates new form TeacherForm */
-    public TeacherForm() {
+    public TeacherForm(Teacher t) {
+        ARMSApp.getApplication().getMainFrame().setVisible(false);
+        teacher = t;
         initComponents();
+    }
+
+    @Action
+    public void logout() {
+        teacher.setLogin(new Date());
+        ARMSManager.update();
+        ARMSApp.getApplication().getMainFrame().setVisible(true);
+        dispose();
     }
 
     /** This method is called from within the constructor to
@@ -41,23 +53,14 @@ public class TeacherForm extends javax.swing.JFrame {
         removeButton = new javax.swing.JButton();
         downButton = new javax.swing.JButton();
         addButton = new javax.swing.JButton();
-        menuBar = new javax.swing.JMenuBar();
-        fileMenu = new javax.swing.JMenu();
-        openMenuItem = new javax.swing.JMenuItem();
-        saveMenuItem = new javax.swing.JMenuItem();
-        saveAsMenuItem = new javax.swing.JMenuItem();
-        exitMenuItem = new javax.swing.JMenuItem();
-        editMenu = new javax.swing.JMenu();
-        cutMenuItem = new javax.swing.JMenuItem();
-        copyMenuItem = new javax.swing.JMenuItem();
-        pasteMenuItem = new javax.swing.JMenuItem();
-        deleteMenuItem = new javax.swing.JMenuItem();
-        helpMenu = new javax.swing.JMenu();
-        contentsMenuItem = new javax.swing.JMenuItem();
-        aboutMenuItem = new javax.swing.JMenuItem();
+        logoutButton = new javax.swing.JButton();
+        nameTextField = new javax.swing.JTextField();
+        loginTextField = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setAlwaysOnTop(true);
         setName("Form"); // NOI18N
+        setResizable(false);
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(arms.ARMSApp.class).getContext().getResourceMap(TeacherForm.class);
         nameLabel.setText(resourceMap.getString("nameLabel.text")); // NOI18N
@@ -69,7 +72,7 @@ public class TeacherForm extends javax.swing.JFrame {
         subSelectScrollPane.setName("subSelectScrollPane"); // NOI18N
 
         subSelectList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            Object[] strings = teacher.getSubjectList();
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -96,73 +99,22 @@ public class TeacherForm extends javax.swing.JFrame {
         downButton.setName("downButton"); // NOI18N
 
         addButton.setText(resourceMap.getString("addButton.text")); // NOI18N
-        addButton.setMaximumSize(new java.awt.Dimension(59, 25));
-        addButton.setMinimumSize(new java.awt.Dimension(59, 25));
         addButton.setName("addButton"); // NOI18N
 
-        menuBar.setName("menuBar"); // NOI18N
+        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(arms.ARMSApp.class).getContext().getActionMap(TeacherForm.class, this);
+        logoutButton.setAction(actionMap.get("logout")); // NOI18N
+        logoutButton.setText(resourceMap.getString("logoutButton.text")); // NOI18N
+        logoutButton.setName("logoutButton"); // NOI18N
 
-        fileMenu.setText(resourceMap.getString("fileMenu.text")); // NOI18N
-        fileMenu.setName("fileMenu"); // NOI18N
+        nameTextField.setEditable(false);
+        nameTextField.setText(teacher.getName());
+        nameTextField.setBorder(null);
+        nameTextField.setName("nameTextField"); // NOI18N
 
-        openMenuItem.setText(resourceMap.getString("openMenuItem.text")); // NOI18N
-        openMenuItem.setName("openMenuItem"); // NOI18N
-        fileMenu.add(openMenuItem);
-
-        saveMenuItem.setText(resourceMap.getString("saveMenuItem.text")); // NOI18N
-        saveMenuItem.setName("saveMenuItem"); // NOI18N
-        fileMenu.add(saveMenuItem);
-
-        saveAsMenuItem.setText(resourceMap.getString("saveAsMenuItem.text")); // NOI18N
-        saveAsMenuItem.setName("saveAsMenuItem"); // NOI18N
-        fileMenu.add(saveAsMenuItem);
-
-        exitMenuItem.setText(resourceMap.getString("exitMenuItem.text")); // NOI18N
-        exitMenuItem.setName("exitMenuItem"); // NOI18N
-        exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitMenuItemActionPerformed(evt);
-            }
-        });
-        fileMenu.add(exitMenuItem);
-
-        menuBar.add(fileMenu);
-
-        editMenu.setText(resourceMap.getString("editMenu.text")); // NOI18N
-        editMenu.setName("editMenu"); // NOI18N
-
-        cutMenuItem.setText(resourceMap.getString("cutMenuItem.text")); // NOI18N
-        cutMenuItem.setName("cutMenuItem"); // NOI18N
-        editMenu.add(cutMenuItem);
-
-        copyMenuItem.setText(resourceMap.getString("copyMenuItem.text")); // NOI18N
-        copyMenuItem.setName("copyMenuItem"); // NOI18N
-        editMenu.add(copyMenuItem);
-
-        pasteMenuItem.setText(resourceMap.getString("pasteMenuItem.text")); // NOI18N
-        pasteMenuItem.setName("pasteMenuItem"); // NOI18N
-        editMenu.add(pasteMenuItem);
-
-        deleteMenuItem.setText(resourceMap.getString("deleteMenuItem.text")); // NOI18N
-        deleteMenuItem.setName("deleteMenuItem"); // NOI18N
-        editMenu.add(deleteMenuItem);
-
-        menuBar.add(editMenu);
-
-        helpMenu.setText(resourceMap.getString("helpMenu.text")); // NOI18N
-        helpMenu.setName("helpMenu"); // NOI18N
-
-        contentsMenuItem.setText(resourceMap.getString("contentsMenuItem.text")); // NOI18N
-        contentsMenuItem.setName("contentsMenuItem"); // NOI18N
-        helpMenu.add(contentsMenuItem);
-
-        aboutMenuItem.setText(resourceMap.getString("aboutMenuItem.text")); // NOI18N
-        aboutMenuItem.setName("aboutMenuItem"); // NOI18N
-        helpMenu.add(aboutMenuItem);
-
-        menuBar.add(helpMenu);
-
-        setJMenuBar(menuBar);
+        loginTextField.setEditable(false);
+        loginTextField.setText(teacher.getLogin());
+        loginTextField.setBorder(null);
+        loginTextField.setName("loginTextField"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -170,20 +122,31 @@ public class TeacherForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(subSelectScrollPane)
-                    .addComponent(nameLabel)
-                    .addComponent(loginLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(downButton, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
-                    .addComponent(upButton, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(removeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(subSelectScrollPane)
+                            .addComponent(loginLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(subListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(downButton, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                                    .addComponent(upButton, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.CENTER, layout.createSequentialGroup()
+                                        .addComponent(removeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(logoutButton)
+                                        .addGap(48, 48, 48)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(subListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(loginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(nameLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -195,9 +158,13 @@ public class TeacherForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(nameLabel)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nameLabel)
+                    .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(loginLabel)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(loginLabel)
+                    .addComponent(loginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -205,9 +172,11 @@ public class TeacherForm extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(removeButton)
-                            .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(addButton))
                         .addGap(18, 18, 18)
-                        .addComponent(downButton))
+                        .addComponent(downButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(logoutButton))
                     .addComponent(subSelectScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(subListScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -219,47 +188,20 @@ public class TeacherForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_exitMenuItemActionPerformed
-
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TeacherForm().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JButton addButton;
-    private javax.swing.JMenuItem contentsMenuItem;
-    private javax.swing.JMenuItem copyMenuItem;
-    private javax.swing.JMenuItem cutMenuItem;
-    private javax.swing.JMenuItem deleteMenuItem;
     private javax.swing.JButton downButton;
-    private javax.swing.JMenu editMenu;
-    private javax.swing.JMenuItem exitMenuItem;
-    private javax.swing.JMenu fileMenu;
-    private javax.swing.JMenu helpMenu;
     private javax.swing.JLabel loginLabel;
-    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JTextField loginTextField;
+    private javax.swing.JButton logoutButton;
     private javax.swing.JLabel nameLabel;
-    private javax.swing.JMenuItem openMenuItem;
-    private javax.swing.JMenuItem pasteMenuItem;
+    private javax.swing.JTextField nameTextField;
     private javax.swing.JButton removeButton;
-    private javax.swing.JMenuItem saveAsMenuItem;
-    private javax.swing.JMenuItem saveMenuItem;
     private javax.swing.JList subList;
     private javax.swing.JScrollPane subListScrollPane;
     private javax.swing.JList subSelectList;
     private javax.swing.JScrollPane subSelectScrollPane;
     private javax.swing.JButton upButton;
     // End of variables declaration//GEN-END:variables
-
+    private Teacher teacher;
 }

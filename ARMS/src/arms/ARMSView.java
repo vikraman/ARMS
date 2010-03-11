@@ -98,6 +98,7 @@ public class ARMSView extends FrameView {
     public void login() {
         String user = userTextField.getText();
         String pass = new String(passPasswordField.getPassword());
+        Object key = null;
         if (user.equals("")) {
             JOptionPane.showMessageDialog(null, "User ID field cannot be left blank!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -106,9 +107,15 @@ public class ARMSView extends FrameView {
             JOptionPane.showMessageDialog(null, "Password field cannot be left blank!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (Login.valid(user, pass, Group.valueOf(userComboBox.getSelectedItem().toString()))) {
-        } else {
-            JOptionPane.showMessageDialog(null, "Invalid user ID and password combination!", "Error", JOptionPane.ERROR_MESSAGE);
+        try {
+            key = ARMSManager.login(user, pass, Group.valueOf(userComboBox.getSelectedItem().toString()));
+        } catch (InvalidLoginException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (key instanceof Teacher) {
+            TeacherForm teacherForm = new TeacherForm((Teacher) key);
+            teacherForm.setVisible(true);
         }
     }
 
