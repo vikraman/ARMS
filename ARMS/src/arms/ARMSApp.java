@@ -1,7 +1,6 @@
 /*
  * ARMSApp.java
  */
-
 package arms;
 
 import org.jdesktop.application.Application;
@@ -15,7 +14,8 @@ public class ARMSApp extends SingleFrameApplication {
     /**
      * At startup create and show the main frame of the application.
      */
-    @Override protected void startup() {
+    @Override
+    protected void startup() {
         show(new ARMSView(this));
     }
 
@@ -24,7 +24,8 @@ public class ARMSApp extends SingleFrameApplication {
      * Windows shown in our application come fully initialized from the GUI
      * builder, so this additional configuration is not needed.
      */
-    @Override protected void configureWindow(java.awt.Window root) {
+    @Override
+    protected void configureWindow(java.awt.Window root) {
     }
 
     /**
@@ -39,6 +40,7 @@ public class ARMSApp extends SingleFrameApplication {
      * Main method launching the application.
      */
     public static void main(String[] args) {
+        new ARMSManager();
         launch(ARMSApp.class, args);
     }
 }

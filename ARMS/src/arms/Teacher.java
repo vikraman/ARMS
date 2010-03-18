@@ -6,7 +6,7 @@ package arms;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,9 +19,7 @@ public class Teacher {
         this.id = id;
         this.pass = pass;
         this.seniority = seniority;
-        subjectList = new Vector<Subject>();
-        subjectList.add(new Subject("Mathematics", "M001"));
-        subjectList.add(new Subject("Physics", "P012"));
+        subjectList = new ArrayList<Subject>();
         lastLogin = new Date();
     }
 
@@ -40,43 +38,51 @@ public class Teacher {
         return name;
     }
 
+    public String getId(){
+        return id;
+    }
+
     public String getLogin() {
         return new SimpleDateFormat().format(lastLogin);
     }
 
-    public Object[] getSubjectList() {
-        return subjectList.toArray();
+    public ArrayList<Subject> getSubjectList() {
+        return subjectList;
     }
 
     public void addSubject(Subject s) {
         subjectList.add(s);
     }
 
-    public void removeSubject(Subject s) {
-        subjectList.remove(s);
+    public void removeSubject(int index) {
+        subjectList.remove(index);
     }
 
-    public void moveUp(Subject s) {
-        int index = subjectList.indexOf(s);
+    public void moveUp(int index) {
         if (index == 0) {
             return;
         }
-        subjectList.setElementAt(subjectList.elementAt(index - 1), index);
-        subjectList.setElementAt(s, index - 1);
+        Subject temp = subjectList.get(index);
+        subjectList.set(index, subjectList.get(index - 1));
+        subjectList.set(index - 1, temp);
     }
 
-    public void moveDown(Subject s) {
-        int index = subjectList.indexOf(s);
+    public void moveDown(int index) {
         if (index == subjectList.size() - 1) {
             return;
         }
-        subjectList.setElementAt(subjectList.elementAt(index + 1), index);
-        subjectList.setElementAt(s, index + 1);
+        Subject temp = subjectList.get(index);
+        subjectList.set(index, subjectList.get(index + 1));
+        subjectList.set(index + 1, temp);
+    }
+
+    public int getSeniority() {
+        return seniority;
     }
     private String name;
     private String id;
     private String pass;
     private int seniority;
-    private Vector<Subject> subjectList;
+    private ArrayList<Subject> subjectList;
     private Date lastLogin;
 }

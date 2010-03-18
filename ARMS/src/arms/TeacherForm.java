@@ -21,7 +21,6 @@ public class TeacherForm extends javax.swing.JFrame {
 
     /** Creates new form TeacherForm */
     public TeacherForm(Teacher t) {
-        ARMSApp.getApplication().getMainFrame().setVisible(false);
         teacher = t;
         initComponents();
     }
@@ -29,9 +28,35 @@ public class TeacherForm extends javax.swing.JFrame {
     @Action
     public void logout() {
         teacher.setLogin(new Date());
-        ARMSManager.update();
+        ARMSManager.update(teacher);
         ARMSApp.getApplication().getMainFrame().setVisible(true);
         dispose();
+    }
+
+    @Action
+    public void moveUp() {
+        teacher.moveUp(subSelectList.getSelectedIndex());
+        subSelectList.setListData(teacher.getSubjectList().toArray());
+    }
+
+    @Action
+    public void moveDown() {
+        teacher.moveDown(subSelectList.getSelectedIndex());
+        subSelectList.setListData(teacher.getSubjectList().toArray());
+    }
+
+    @Action
+    public void remove() {
+        teacher.removeSubject(subSelectList.getSelectedIndex());
+        subList.setListData(ARMSManager.getAvailSubjectList(teacher.getSubjectList()).toArray());
+        subSelectList.setListData(teacher.getSubjectList().toArray());
+    }
+
+    @Action
+    public void add() {
+        teacher.addSubject((Subject) subList.getSelectedValue());
+        subSelectList.setListData(teacher.getSubjectList().toArray());
+        subList.setListData(ARMSManager.getAvailSubjectList(teacher.getSubjectList()).toArray());
     }
 
     /** This method is called from within the constructor to
@@ -58,11 +83,12 @@ public class TeacherForm extends javax.swing.JFrame {
         loginTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(arms.ARMSApp.class).getContext().getResourceMap(TeacherForm.class);
+        setTitle(resourceMap.getString("Form.title")); // NOI18N
         setAlwaysOnTop(true);
         setName("Form"); // NOI18N
         setResizable(false);
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(arms.ARMSApp.class).getContext().getResourceMap(TeacherForm.class);
         nameLabel.setText(resourceMap.getString("nameLabel.text")); // NOI18N
         nameLabel.setName("nameLabel"); // NOI18N
 
@@ -72,36 +98,54 @@ public class TeacherForm extends javax.swing.JFrame {
         subSelectScrollPane.setName("subSelectScrollPane"); // NOI18N
 
         subSelectList.setModel(new javax.swing.AbstractListModel() {
-            Object[] strings = teacher.getSubjectList();
+            Object[] strings = teacher.getSubjectList().toArray();
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
         subSelectList.setName("subSelectList"); // NOI18N
+        subSelectList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                subSelectListValueChanged(evt);
+            }
+        });
         subSelectScrollPane.setViewportView(subSelectList);
 
         subListScrollPane.setName("subListScrollPane"); // NOI18N
 
         subList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            Object[] strings = ARMSManager.getAvailSubjectList(teacher.getSubjectList()).toArray();
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
         subList.setName("subList"); // NOI18N
+        subList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                subListValueChanged(evt);
+            }
+        });
         subListScrollPane.setViewportView(subList);
 
+        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(arms.ARMSApp.class).getContext().getActionMap(TeacherForm.class, this);
+        upButton.setAction(actionMap.get("moveUp")); // NOI18N
         upButton.setText(resourceMap.getString("upButton.text")); // NOI18N
+        upButton.setEnabled(false);
         upButton.setName("upButton"); // NOI18N
 
+        removeButton.setAction(actionMap.get("remove")); // NOI18N
         removeButton.setText(resourceMap.getString("removeButton.text")); // NOI18N
+        removeButton.setEnabled(false);
         removeButton.setName("removeButton"); // NOI18N
 
+        downButton.setAction(actionMap.get("moveDown")); // NOI18N
         downButton.setText(resourceMap.getString("downButton.text")); // NOI18N
+        downButton.setEnabled(false);
         downButton.setName("downButton"); // NOI18N
 
+        addButton.setAction(actionMap.get("add")); // NOI18N
         addButton.setText(resourceMap.getString("addButton.text")); // NOI18N
+        addButton.setEnabled(false);
         addButton.setName("addButton"); // NOI18N
 
-        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(arms.ARMSApp.class).getContext().getActionMap(TeacherForm.class, this);
         logoutButton.setAction(actionMap.get("logout")); // NOI18N
         logoutButton.setText(resourceMap.getString("logoutButton.text")); // NOI18N
         logoutButton.setName("logoutButton"); // NOI18N
@@ -126,23 +170,24 @@ public class TeacherForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(subSelectScrollPane)
-                            .addComponent(loginLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(downButton, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
-                                    .addComponent(upButton, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.CENTER, layout.createSequentialGroup()
-                                        .addComponent(removeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(logoutButton)
-                                        .addGap(48, 48, 48)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(subListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(loginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(loginLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(loginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(92, 92, 92)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(downButton, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                            .addComponent(upButton, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.CENTER, layout.createSequentialGroup()
+                                .addComponent(removeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(logoutButton)
+                                .addGap(48, 48, 48)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addComponent(subListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(nameLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -188,6 +233,31 @@ public class TeacherForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void subSelectListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_subSelectListValueChanged
+        // TODO add your handling code here:
+        int selectIndex = subSelectList.getSelectedIndex();
+        if (selectIndex == -1) {
+            removeButton.setEnabled(false);
+            upButton.setEnabled(false);
+            downButton.setEnabled(false);
+        } else {
+            removeButton.setEnabled(true);
+            upButton.setEnabled(true);
+            downButton.setEnabled(true);
+            if (selectIndex == 0) {
+                upButton.setEnabled(false);
+            }
+            if (selectIndex == subSelectList.getModel().getSize() - 1) {
+                downButton.setEnabled(false);
+            }
+        }
+    }//GEN-LAST:event_subSelectListValueChanged
+
+    private void subListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_subListValueChanged
+        // TODO add your handling code here:
+        addButton.setEnabled(!subList.isSelectionEmpty());
+    }//GEN-LAST:event_subListValueChanged
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JButton downButton;

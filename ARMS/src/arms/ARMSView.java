@@ -25,7 +25,6 @@ public class ARMSView extends FrameView {
         super(app);
 
         initComponents();
-
         // status bar initialization - message timeout, idle icon and busy animation, etc
         ResourceMap resourceMap = getResourceMap();
         int messageTimeout = resourceMap.getInteger("StatusBar.messageTimeout");
@@ -115,7 +114,15 @@ public class ARMSView extends FrameView {
         }
         if (key instanceof Teacher) {
             TeacherForm teacherForm = new TeacherForm((Teacher) key);
+            teacherForm.setLocationRelativeTo(ARMSApp.getApplication().getMainFrame());
+            ARMSApp.getApplication().getMainFrame().setVisible(false);
             teacherForm.setVisible(true);
+        }
+        if (key instanceof User) {
+            ARMSOutput aRMSOutput = new ARMSOutput(ARMSManager.generateSolution());
+            aRMSOutput.setLocationRelativeTo(ARMSApp.getApplication().getMainFrame());
+            ARMSApp.getApplication().getMainFrame().setVisible(false);
+            aRMSOutput.setVisible(true);
         }
     }
 
