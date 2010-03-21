@@ -25,11 +25,15 @@ public class TeacherForm extends javax.swing.JFrame {
         initComponents();
     }
 
+    @Override
+    public void dispose() {
+        teacher.setLogin(new Date());
+        ARMSApp.getApplication().getMainFrame().setVisible(true);
+        super.dispose();
+    }
+
     @Action
     public void logout() {
-        teacher.setLogin(new Date());
-        ARMSManager.update(teacher);
-        ARMSApp.getApplication().getMainFrame().setVisible(true);
         dispose();
     }
 
@@ -82,7 +86,7 @@ public class TeacherForm extends javax.swing.JFrame {
         nameTextField = new javax.swing.JTextField();
         loginTextField = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(arms.ARMSApp.class).getContext().getResourceMap(TeacherForm.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setAlwaysOnTop(true);
@@ -128,22 +132,18 @@ public class TeacherForm extends javax.swing.JFrame {
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(arms.ARMSApp.class).getContext().getActionMap(TeacherForm.class, this);
         upButton.setAction(actionMap.get("moveUp")); // NOI18N
         upButton.setText(resourceMap.getString("upButton.text")); // NOI18N
-        upButton.setEnabled(false);
         upButton.setName("upButton"); // NOI18N
 
         removeButton.setAction(actionMap.get("remove")); // NOI18N
         removeButton.setText(resourceMap.getString("removeButton.text")); // NOI18N
-        removeButton.setEnabled(false);
         removeButton.setName("removeButton"); // NOI18N
 
         downButton.setAction(actionMap.get("moveDown")); // NOI18N
         downButton.setText(resourceMap.getString("downButton.text")); // NOI18N
-        downButton.setEnabled(false);
         downButton.setName("downButton"); // NOI18N
 
         addButton.setAction(actionMap.get("add")); // NOI18N
         addButton.setText(resourceMap.getString("addButton.text")); // NOI18N
-        addButton.setEnabled(false);
         addButton.setName("addButton"); // NOI18N
 
         logoutButton.setAction(actionMap.get("logout")); // NOI18N

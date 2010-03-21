@@ -19,6 +19,12 @@ public class ARMSApp extends SingleFrameApplication {
         show(new ARMSView(this));
     }
 
+    @Override
+    protected void shutdown() {
+        ARMSManager.update();
+        super.shutdown();
+    }
+
     /**
      * This method is to initialize the specified window by injecting resources.
      * Windows shown in our application come fully initialized from the GUI

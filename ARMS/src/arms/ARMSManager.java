@@ -4,7 +4,14 @@
  */
 package arms;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,36 +20,55 @@ import java.util.ArrayList;
 public class ARMSManager {
 
     public ARMSManager() {
-        teacherList = new ArrayList<Teacher>();
-        userList = new ArrayList<User>();
-        subjectList = new ArrayList<Subject>();
-        userList.add(new User("User", "user", "user"));
-        teacherList.add(new Teacher("John Smith", "john", "smith", 1));
-        teacherList.add(new Teacher("Donald Knuth", "donald", "knuth", 10));
-        teacherList.add(new Teacher("Thomas Cormen", "thomas", "cormen", 8));
-        teacherList.add(new Teacher("Andrew Tanenbaum", "andrew", "tanenbaum", 7));
-        teacherList.add(new Teacher("Stephen Hawking", "stephen", "hawking", 15));
-        teacherList.add(new Teacher("Larry Wall", "larry", "wall", 5));
-        subjectList.add(new Subject("Object Oriented Programming", "P050"));
-        subjectList.add(new Subject("Mathematics", "M001"));
-        subjectList.add(new Subject("Physics", "P001"));
-        subjectList.add(new Subject("Operating Systems", "O012"));
-        subjectList.add(new Subject("Network Programming", "N010"));
-        subjectList.add(new Subject("Programming Languages", "L010"));
-        subjectList.add(new Subject("Data Structures", "D910"));
-        subjectList.add(new Subject("Algorithmics", "A007"));
-        subjectList.add(new Subject("Automata Theory", "A050"));
-        subjectList.add(new Subject("Systems Programming", "S050"));
-        subjectList.add(new Subject("Complexity Theory", "C050"));
+        try {
+            configFile = getConfigFile();
+            if (configFile.length() == 0) {
+                subjectList = new ArrayList<Subject>();
+                teacherList = new ArrayList<Teacher>();
+                return;
+            }
+            FileInputStream fis = new FileInputStream(configFile);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            subjectList = (ArrayList<Subject>) ois.readObject();
+            teacherList = (ArrayList<Teacher>) ois.readObject();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public static File getConfigFile() throws IOException {
+        String userHome = System.getProperty("user.home");
+        if (userHome.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Cannot find user home !", "Error", JOptionPane.ERROR_MESSAGE);
+            ARMSApp.getApplication().exit();
+        }
+        File home = new File(userHome);
+        File settingsDirectory = new File(home, ".ARMS");
+        if (!settingsDirectory.exists()) {
+            if (!settingsDirectory.mkdir()) {
+                JOptionPane.showMessageDialog(null, "Cannot write to home directory !", "Error", JOptionPane.ERROR_MESSAGE);
+                ARMSApp.getApplication().exit();
+            }
+        }
+        File settingsFile = new File(settingsDirectory, "ARMS.config");
+        if (!settingsFile.exists()) {
+            if (!settingsFile.createNewFile()) {
+                JOptionPane.showMessageDialog(null, "Cannot create config file !", "Error", JOptionPane.ERROR_MESSAGE);
+                ARMSApp.getApplication().exit();
+            }
+        }
+        return settingsFile;
     }
 
     public static Object login(String id, String pass, Group group) throws InvalidLoginException {
         switch (group) {
             case User:
-                for (User u : userList) {
-                    if (u.validate(id, pass)) {
-                        return u;
-                    }
+                if (id.equals("user") && pass.equals("user")) {
+                    ARMSOutput aRMSOutput = new ARMSOutput(ARMSManager.generateSolution());
+                    aRMSOutput.setLocationRelativeTo(ARMSApp.getApplication().getMainFrame());
+                    ARMSApp.getApplication().getMainFrame().setVisible(false);
+                    aRMSOutput.setVisible(true);
+                    return null;
                 }
                 break;
             case Teacher:
@@ -54,6 +80,10 @@ public class ARMSManager {
                 break;
             case Administrator:
                 if (id.equals("admin") && pass.equals("admin")) {
+                    AdminForm adminForm = new AdminForm(teacherList, subjectList);
+                    adminForm.setLocationRelativeTo(ARMSApp.getApplication().getMainFrame());
+                    ARMSApp.getApplication().getMainFrame().setVisible(false);
+                    adminForm.setVisible(true);
                     return null;
                 }
                 break;
@@ -61,16 +91,16 @@ public class ARMSManager {
         throw new InvalidLoginException("Invalid user ID and password combination!");
     }
 
-    public static void update(Object o) {
-        /*if (o instanceof Teacher) {
-        Teacher to = (Teacher) o;
-        for (int i = 0; i < teacherList.size(); i++) {
-        if (teacherList.get(i).getId().equals(to.getId())) {
-        teacherList.set(i, to);
-        break;
+    public static void update() {
+        try {
+            configFile = getConfigFile();
+            FileOutputStream fos = new FileOutputStream(configFile);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(subjectList);
+            oos.writeObject(teacherList);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-        }
-        }*/
     }
 
     public static ArrayList<Subject> getAvailSubjectList(ArrayList<Subject> selectList) {
@@ -94,7 +124,7 @@ public class ARMSManager {
             for (j = 0; j < col; j++) {
                 priority = col - teacherList.get(i).getSubjectList().indexOf(subjectList.get(j));
                 priority = priority == (col + 1) ? 0 : priority;
-                solutionTable[i][j] = priority * teacherList.get(i).getSeniority();
+                solutionTable[i][j] = priority * (teacherList.size() - i);
             }
         }
         //find out the maximum value in each column
@@ -123,6 +153,6 @@ public class ARMSManager {
         return teacherList;
     }
     private static ArrayList<Teacher> teacherList;
-    private static ArrayList<User> userList;
     private static ArrayList<Subject> subjectList;
+    private static File configFile;
 }

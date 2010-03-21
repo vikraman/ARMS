@@ -4,6 +4,7 @@
  */
 package arms;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
@@ -12,13 +13,12 @@ import java.util.ArrayList;
  *
  * @author vh4x0r
  */
-public class Teacher {
+public class Teacher implements Serializable {
 
-    public Teacher(String name, String id, String pass, int seniority) {
+    public Teacher(String name, String id, String pass) {
         this.name = name;
         this.id = id;
         this.pass = pass;
-        this.seniority = seniority;
         subjectList = new ArrayList<Subject>();
         lastLogin = new Date();
     }
@@ -38,7 +38,7 @@ public class Teacher {
         return name;
     }
 
-    public String getId(){
+    public String getId() {
         return id;
     }
 
@@ -76,13 +76,13 @@ public class Teacher {
         subjectList.set(index + 1, temp);
     }
 
-    public int getSeniority() {
-        return seniority;
+    @Override
+    public String toString() {
+        return name;
     }
     private String name;
     private String id;
     private String pass;
-    private int seniority;
     private ArrayList<Subject> subjectList;
     private Date lastLogin;
 }

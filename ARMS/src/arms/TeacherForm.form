@@ -2,7 +2,7 @@
 
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="0"/>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" resourceKey="Form.title"/>
     <Property name="alwaysOnTop" type="boolean" value="true"/>
     <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
@@ -166,7 +166,6 @@
           <action class="arms.TeacherForm" id="moveUp" methodName="moveUp"/>
         </Property>
         <Property name="text" type="java.lang.String" resourceKey="upButton.text"/>
-        <Property name="enabled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="upButton" noResource="true"/>
       </Properties>
     </Component>
@@ -176,7 +175,6 @@
           <action class="arms.TeacherForm" id="remove" methodName="remove"/>
         </Property>
         <Property name="text" type="java.lang.String" resourceKey="removeButton.text"/>
-        <Property name="enabled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="removeButton" noResource="true"/>
       </Properties>
     </Component>
@@ -186,7 +184,6 @@
           <action class="arms.TeacherForm" id="moveDown" methodName="moveDown"/>
         </Property>
         <Property name="text" type="java.lang.String" resourceKey="downButton.text"/>
-        <Property name="enabled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="downButton" noResource="true"/>
       </Properties>
     </Component>
@@ -196,7 +193,6 @@
           <action class="arms.TeacherForm" id="add" methodName="add"/>
         </Property>
         <Property name="text" type="java.lang.String" resourceKey="addButton.text"/>
-        <Property name="enabled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="addButton" noResource="true"/>
       </Properties>
     </Component>

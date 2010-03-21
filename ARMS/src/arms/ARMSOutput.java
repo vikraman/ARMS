@@ -24,9 +24,14 @@ public class ARMSOutput extends javax.swing.JFrame {
         initComponents();
     }
 
+    @Override
+    public void dispose() {
+        ARMSApp.getApplication().getMainFrame().setVisible(true);
+        super.dispose();
+    }
+
     @Action
     public void logout() {
-        ARMSApp.getApplication().getMainFrame().setVisible(true);
         dispose();
     }
 
@@ -46,7 +51,7 @@ public class ARMSOutput extends javax.swing.JFrame {
         teacherTextArea = new javax.swing.JTextArea();
         logoutButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(arms.ARMSApp.class).getContext().getResourceMap(ARMSOutput.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
 

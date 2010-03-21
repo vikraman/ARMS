@@ -4,15 +4,25 @@
  */
 package arms;
 
+import java.io.Serializable;
+
 /**
  *
  * @author vh4x0r
  */
-public class Subject {
+public class Subject implements Serializable {
 
     public Subject(String name, String id) {
         this.name = name;
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getId() {
+        return id;
     }
 
     @Override

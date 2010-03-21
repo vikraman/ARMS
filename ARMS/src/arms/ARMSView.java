@@ -118,12 +118,6 @@ public class ARMSView extends FrameView {
             ARMSApp.getApplication().getMainFrame().setVisible(false);
             teacherForm.setVisible(true);
         }
-        if (key instanceof User) {
-            ARMSOutput aRMSOutput = new ARMSOutput(ARMSManager.generateSolution());
-            aRMSOutput.setLocationRelativeTo(ARMSApp.getApplication().getMainFrame());
-            ARMSApp.getApplication().getMainFrame().setVisible(false);
-            aRMSOutput.setVisible(true);
-        }
     }
 
     /** This method is called from within the constructor to
@@ -321,5 +315,4 @@ public class ARMSView extends FrameView {
     private final Icon[] busyIcons = new Icon[15];
     private int busyIconIndex = 0;
     private JDialog aboutBox;
-    private JDialog loginDialog;
 }
