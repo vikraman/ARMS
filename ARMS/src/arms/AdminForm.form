@@ -24,7 +24,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="adminTabbedPane" alignment="0" max="32767" attributes="0"/>
+          <Component id="adminTabbedPane" alignment="0" pref="534" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -447,10 +447,14 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="psrButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="406" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="psrButton" linkSize="5" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="userPasswdButton" linkSize="5" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="adminPasswdButton" linkSize="5" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="356" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -458,8 +462,12 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="psrButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="236" max="32767" attributes="0"/>
+                      <Component id="psrButton" linkSize="6" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="userPasswdButton" linkSize="6" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="adminPasswdButton" linkSize="6" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="150" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -472,6 +480,24 @@
                 </Property>
                 <Property name="text" type="java.lang.String" resourceKey="psrButton.text"/>
                 <Property name="name" type="java.lang.String" value="psrButton" noResource="true"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="userPasswdButton">
+              <Properties>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="arms.AdminForm" id="setUserPasswd" methodName="setUserPasswd"/>
+                </Property>
+                <Property name="text" type="java.lang.String" resourceKey="userPasswdButton.text"/>
+                <Property name="name" type="java.lang.String" value="userPasswdButton" noResource="true"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="adminPasswdButton">
+              <Properties>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="arms.AdminForm" id="setAdminPasswd" methodName="setAdminPasswd"/>
+                </Property>
+                <Property name="text" type="java.lang.String" resourceKey="adminPasswdButton.text"/>
+                <Property name="name" type="java.lang.String" value="adminPasswdButton" noResource="true"/>
               </Properties>
             </Component>
           </SubComponents>

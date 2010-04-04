@@ -17,7 +17,7 @@ public class Teacher implements Serializable {
     public Teacher(String name, String id, String pass) {
         this.name = name;
         this.id = id;
-        this.pass = pass;
+        this.pass = pass.hashCode();
         subjectList = new ArrayList<Subject>();
         lastLogin = new Date();
     }
@@ -48,7 +48,7 @@ public class Teacher implements Serializable {
     }
 
     public boolean validate(String id, String pass) {
-        if (id.equals(this.id) && pass.equals(this.pass)) {
+        if (id.equals(this.id) && pass.hashCode() == this.pass) {
             return true;
         }
         return false;
@@ -106,7 +106,7 @@ public class Teacher implements Serializable {
     }
     private String name;
     private String id;
-    private String pass;
+    private long pass;
     private ArrayList<Subject> subjectList;
     private Date lastLogin;
 }

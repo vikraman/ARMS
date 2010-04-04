@@ -62,6 +62,8 @@ public class AdminForm extends javax.swing.JFrame {
         subIdTextField = new javax.swing.JTextField();
         settingsPanel = new javax.swing.JPanel();
         psrButton = new javax.swing.JButton();
+        userPasswdButton = new javax.swing.JButton();
+        adminPasswdButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(arms.ARMSApp.class).getContext().getResourceMap(AdminForm.class);
@@ -315,22 +317,42 @@ public class AdminForm extends javax.swing.JFrame {
         psrButton.setText(resourceMap.getString("psrButton.text")); // NOI18N
         psrButton.setName("psrButton"); // NOI18N
 
+        userPasswdButton.setAction(actionMap.get("setUserPasswd")); // NOI18N
+        userPasswdButton.setText(resourceMap.getString("userPasswdButton.text")); // NOI18N
+        userPasswdButton.setName("userPasswdButton"); // NOI18N
+
+        adminPasswdButton.setAction(actionMap.get("setAdminPasswd")); // NOI18N
+        adminPasswdButton.setText(resourceMap.getString("adminPasswdButton.text")); // NOI18N
+        adminPasswdButton.setName("adminPasswdButton"); // NOI18N
+
         javax.swing.GroupLayout settingsPanelLayout = new javax.swing.GroupLayout(settingsPanel);
         settingsPanel.setLayout(settingsPanelLayout);
         settingsPanelLayout.setHorizontalGroup(
             settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(settingsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(psrButton)
-                .addContainerGap(406, Short.MAX_VALUE))
+                .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(psrButton)
+                    .addComponent(userPasswdButton)
+                    .addComponent(adminPasswdButton))
+                .addContainerGap(356, Short.MAX_VALUE))
         );
+
+        settingsPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {adminPasswdButton, psrButton, userPasswdButton});
+
         settingsPanelLayout.setVerticalGroup(
             settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(settingsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(psrButton)
-                .addContainerGap(236, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(userPasswdButton)
+                .addGap(18, 18, 18)
+                .addComponent(adminPasswdButton)
+                .addContainerGap(150, Short.MAX_VALUE))
         );
+
+        settingsPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {adminPasswdButton, psrButton, userPasswdButton});
 
         adminTabbedPane.addTab(resourceMap.getString("settingsPanel.TabConstraints.tabTitle"), settingsPanel); // NOI18N
 
@@ -338,7 +360,7 @@ public class AdminForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(adminTabbedPane)
+            .addComponent(adminTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -487,6 +509,16 @@ public class AdminForm extends javax.swing.JFrame {
         subList.setListData(subjects.toArray());
     }
 
+    @Action
+    public void setUserPasswd() {
+        ARMSManager.updateUser();
+    }
+
+    @Action
+    public void setAdminPasswd() {
+        ARMSManager.updateAdmin();
+    }
+
     private void teacherListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_teacherListValueChanged
         // TODO add your handling code here:
         int selectIndex = teacherList.getSelectedIndex();
@@ -534,6 +566,7 @@ public class AdminForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addSubButton;
     private javax.swing.JButton addTeacherButton;
+    private javax.swing.JButton adminPasswdButton;
     private javax.swing.JTabbedPane adminTabbedPane;
     private javax.swing.JButton deleteSubButton;
     private javax.swing.JButton deleteTeacherButton;
@@ -559,6 +592,7 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JPanel teacherPanel;
     private javax.swing.JScrollPane teacherScrollPane;
     private javax.swing.JButton upButton;
+    private javax.swing.JButton userPasswdButton;
     // End of variables declaration//GEN-END:variables
     private ArrayList<Teacher> teachers;
     private ArrayList<Subject> subjects;

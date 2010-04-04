@@ -54,6 +54,24 @@ public class ARMSManager {
                 ois.close();
                 fis.close();
             }
+            if (configFiles[3].length() == 0) {
+                adminPass = "admin".hashCode();
+            } else {
+                fis = new FileInputStream(configFiles[3]);
+                ois = new ObjectInputStream(fis);
+                adminPass = ois.readLong();
+                ois.close();
+                fis.close();
+            }
+            if (configFiles[4].length() == 0) {
+                userPass = "user".hashCode();
+            } else {
+                fis = new FileInputStream(configFiles[4]);
+                ois = new ObjectInputStream(fis);
+                userPass = ois.readLong();
+                ois.close();
+                fis.close();
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Invalid config file !", "Error", JOptionPane.ERROR_MESSAGE);
             ARMSApp.getApplication().exit();
@@ -74,7 +92,7 @@ public class ARMSManager {
                 ARMSApp.getApplication().exit();
             }
         }
-        File[] settingsFiles = new File[3];
+        File[] settingsFiles = new File[5];
         settingsFiles[0] = new File(settingsDirectory, "tlist.bin");
         if (!settingsFiles[0].exists()) {
             if (!settingsFiles[0].createNewFile()) {
@@ -96,13 +114,27 @@ public class ARMSManager {
                 ARMSApp.getApplication().exit();
             }
         }
+        settingsFiles[3] = new File(settingsDirectory, "admin.bin");
+        if (!settingsFiles[3].exists()) {
+            if (!settingsFiles[3].createNewFile()) {
+                JOptionPane.showMessageDialog(null, "Cannot create config file !", "Error", JOptionPane.ERROR_MESSAGE);
+                ARMSApp.getApplication().exit();
+            }
+        }
+        settingsFiles[4] = new File(settingsDirectory, "user.bin");
+        if (!settingsFiles[4].exists()) {
+            if (!settingsFiles[4].createNewFile()) {
+                JOptionPane.showMessageDialog(null, "Cannot create config file !", "Error", JOptionPane.ERROR_MESSAGE);
+                ARMSApp.getApplication().exit();
+            }
+        }
         return settingsFiles;
     }
 
     public static Object login(String id, String pass, Group group) throws InvalidLoginException {
         switch (group) {
             case User:
-                if (id.equals("user") && pass.equals("user")) {
+                if (id.equals("user") && pass.hashCode() == userPass) {
                     ARMSOutput aRMSOutput = new ARMSOutput(ARMSManager.generateSolution());
                     aRMSOutput.setLocationRelativeTo(ARMSApp.getApplication().getMainFrame());
                     ARMSApp.getApplication().getMainFrame().setVisible(false);
@@ -118,7 +150,7 @@ public class ARMSManager {
                 }
                 break;
             case Administrator:
-                if (id.equals("admin") && pass.equals("admin")) {
+                if (id.equals("admin") && pass.hashCode() == adminPass) {
                     AdminForm adminForm = new AdminForm(teacherList, subjectList);
                     adminForm.setLocationRelativeTo(ARMSApp.getApplication().getMainFrame());
                     ARMSApp.getApplication().getMainFrame().setVisible(false);
@@ -148,6 +180,16 @@ public class ARMSManager {
             fos = new FileOutputStream(configFiles[2]);
             oos = new ObjectOutputStream(fos);
             oos.writeDouble(psr);
+            oos.close();
+            fos.close();
+            fos = new FileOutputStream(configFiles[3]);
+            oos = new ObjectOutputStream(fos);
+            oos.writeLong(adminPass);
+            oos.close();
+            fos.close();
+            fos = new FileOutputStream(configFiles[4]);
+            oos = new ObjectOutputStream(fos);
+            oos.writeLong(userPass);
             oos.close();
             fos.close();
         } catch (Exception e) {
@@ -218,8 +260,26 @@ public class ARMSManager {
             JOptionPane.showMessageDialog(null, "Bad numerical value !", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+    public static void updateUser() {
+        String p = JOptionPane.showInputDialog(null, "Enter new user password :", "Password", JOptionPane.QUESTION_MESSAGE);
+        if (p == null || p.isEmpty()) {
+            return;
+        }
+        userPass = p.hashCode();
+    }
+
+    public static void updateAdmin() {
+        String p = JOptionPane.showInputDialog(null, "Enter new administrator password :", "Password", JOptionPane.QUESTION_MESSAGE);
+        if (p == null || p.isEmpty()) {
+            return;
+        }
+        adminPass = p.hashCode();
+    }
     private static ArrayList<Teacher> teacherList;
     private static ArrayList<Subject> subjectList;
     private static Double psr;
     private static File[] configFiles;
+    private static long adminPass;
+    private static long userPass;
 }
