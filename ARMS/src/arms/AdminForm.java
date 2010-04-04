@@ -399,7 +399,7 @@ public class AdminForm extends javax.swing.JFrame {
         if (pass == null || pass.isEmpty()) {
             return;
         }
-        Teacher t = new Teacher(name, id, pass);
+        Teacher t = new Teacher(name.trim(), id.trim(), pass);
         if (teachers.contains(t)) {
             JOptionPane.showMessageDialog(null, "Teacher with same id already exists !", "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -433,10 +433,12 @@ public class AdminForm extends javax.swing.JFrame {
         if (pass == null || pass.isEmpty()) {
             return;
         }
-        t = new Teacher(name, id, pass);
-        if (teachers.indexOf(t) != index || teachers.lastIndexOf(t) != index) {
-            JOptionPane.showMessageDialog(null, "Teacher with same id already exists !", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+        t = new Teacher(name.trim(), id.trim(), pass);
+        if (teachers.indexOf(t) != -1) {
+            if (teachers.indexOf(t) != index || teachers.lastIndexOf(t) != index) {
+                JOptionPane.showMessageDialog(null, "Teacher with same id already exists !", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
         }
         teachers.set(index, t);
         teacherList.setListData(teachers.toArray());
@@ -470,7 +472,7 @@ public class AdminForm extends javax.swing.JFrame {
         if (id == null || id.isEmpty()) {
             return;
         }
-        Subject s = new Subject(name, id);
+        Subject s = new Subject(name.trim(), id.trim());
         if (subjects.contains(s)) {
             JOptionPane.showMessageDialog(null, "Subject with same id already exists !", "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -500,10 +502,12 @@ public class AdminForm extends javax.swing.JFrame {
         if (id == null || id.isEmpty()) {
             return;
         }
-        s = new Subject(name, id);
-        if (subjects.indexOf(s) != index || subjects.lastIndexOf(s) != index) {
-            JOptionPane.showMessageDialog(null, "Subject with same id already exists !", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+        s = new Subject(name.trim(), id.trim());
+        if (subjects.indexOf(s) != -1) {
+            if (subjects.indexOf(s) != index || subjects.lastIndexOf(s) != index) {
+                JOptionPane.showMessageDialog(null, "Subject with same id already exists !", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
         }
         subjects.set(index, s);
         subList.setListData(subjects.toArray());
