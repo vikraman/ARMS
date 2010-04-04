@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Automatic Routine Management System
  */
 
 /*
@@ -47,9 +46,10 @@ public class ARMSOutput extends javax.swing.JFrame {
         subScrollPane = new javax.swing.JScrollPane();
         subList = new javax.swing.JList();
         teacherLabel = new javax.swing.JLabel();
-        teacherScrollPane = new javax.swing.JScrollPane();
-        teacherTextArea = new javax.swing.JTextArea();
         logoutButton = new javax.swing.JButton();
+        subjectLabel = new javax.swing.JLabel();
+        teacherScrollPane = new javax.swing.JScrollPane();
+        teacherEditorPane = new javax.swing.JEditorPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(arms.ARMSApp.class).getContext().getResourceMap(ARMSOutput.class);
@@ -73,17 +73,20 @@ public class ARMSOutput extends javax.swing.JFrame {
         teacherLabel.setText(resourceMap.getString("teacherLabel.text")); // NOI18N
         teacherLabel.setName("teacherLabel"); // NOI18N
 
-        teacherScrollPane.setName("teacherScrollPane"); // NOI18N
-
-        teacherTextArea.setColumns(20);
-        teacherTextArea.setRows(5);
-        teacherTextArea.setName("teacherTextArea"); // NOI18N
-        teacherScrollPane.setViewportView(teacherTextArea);
-
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(arms.ARMSApp.class).getContext().getActionMap(ARMSOutput.class, this);
         logoutButton.setAction(actionMap.get("logout")); // NOI18N
         logoutButton.setText(resourceMap.getString("logoutButton.text")); // NOI18N
         logoutButton.setName("logoutButton"); // NOI18N
+
+        subjectLabel.setText(resourceMap.getString("subjectLabel.text")); // NOI18N
+        subjectLabel.setName("subjectLabel"); // NOI18N
+
+        teacherScrollPane.setName("teacherScrollPane"); // NOI18N
+
+        teacherEditorPane.setEditable(false);
+        teacherEditorPane.setName("teacherEditorPane"); // NOI18N
+        teacherEditorPane.setContentType("text/html");
+        teacherScrollPane.setViewportView(teacherEditorPane);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -91,33 +94,34 @@ public class ARMSOutput extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(subScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(subjectLabel)
+                    .addComponent(subScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(teacherLabel)
-                        .addGap(191, 191, 191))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(teacherScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
-                        .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(teacherScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(logoutButton)
-                        .addContainerGap())))
+                        .addGap(151, 151, 151)
+                        .addComponent(logoutButton))
+                    .addComponent(teacherLabel))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(128, 128, 128)
+                        .addGap(98, 98, 98)
                         .addComponent(teacherLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(teacherScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(teacherScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                         .addComponent(logoutButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(subScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(subjectLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(subScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -131,19 +135,22 @@ public class ARMSOutput extends javax.swing.JFrame {
         }
         String text;
         if (index[subList.getSelectedIndex()] == -1) {
-            text = "Teacher not allocated";
+            text = "<color=ff0000><i>Teacher not allocated</i>";
         } else {
-            text = ARMSManager.getTeacher(index[subList.getSelectedIndex()]);
+            Teacher t = ARMSManager.getTeachers().get(index[subList.getSelectedIndex()]);
+            text = "<strong>Name:<i> " + t.getName() + "</i><br>ID: " + t.getId() + "</strong>";
         }
-        teacherTextArea.setText(text);
+        teacherEditorPane.setContentType("text/html");
+        teacherEditorPane.setText(text);
     }//GEN-LAST:event_subListValueChanged
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton logoutButton;
     private javax.swing.JList subList;
     private javax.swing.JScrollPane subScrollPane;
+    private javax.swing.JLabel subjectLabel;
+    private javax.swing.JEditorPane teacherEditorPane;
     private javax.swing.JLabel teacherLabel;
     private javax.swing.JScrollPane teacherScrollPane;
-    private javax.swing.JTextArea teacherTextArea;
     // End of variables declaration//GEN-END:variables
     private int[] index;
 }

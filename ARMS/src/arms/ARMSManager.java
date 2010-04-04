@@ -1,6 +1,9 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Automatic Routine Management System
+ */
+
+/*
+ * ARMSManager.java
  */
 package arms;
 
@@ -21,22 +24,43 @@ public class ARMSManager {
 
     public ARMSManager() {
         try {
-            configFile = getConfigFile();
-            if (configFile.length() == 0) {
-                subjectList = new ArrayList<Subject>();
+            configFiles = getConfigFiles();
+            FileInputStream fis;
+            ObjectInputStream ois;
+            if (configFiles[0].length() == 0) {
                 teacherList = new ArrayList<Teacher>();
-                return;
+            } else {
+                fis = new FileInputStream(configFiles[0]);
+                ois = new ObjectInputStream(fis);
+                teacherList = (ArrayList<Teacher>) ois.readObject();
+                ois.close();
+                fis.close();
             }
-            FileInputStream fis = new FileInputStream(configFile);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            subjectList = (ArrayList<Subject>) ois.readObject();
-            teacherList = (ArrayList<Teacher>) ois.readObject();
+            if (configFiles[1].length() == 0) {
+                subjectList = new ArrayList<Subject>();
+            } else {
+                fis = new FileInputStream(configFiles[1]);
+                ois = new ObjectInputStream(fis);
+                subjectList = (ArrayList<Subject>) ois.readObject();
+                ois.close();
+                fis.close();
+            }
+            if (configFiles[2].length() == 0) {
+                psr = 2.0;
+            } else {
+                fis = new FileInputStream(configFiles[2]);
+                ois = new ObjectInputStream(fis);
+                psr = ois.readDouble();
+                ois.close();
+                fis.close();
+            }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Invalid config file !", "Error", JOptionPane.ERROR_MESSAGE);
+            ARMSApp.getApplication().exit();
         }
     }
 
-    public static File getConfigFile() throws IOException {
+    public static File[] getConfigFiles() throws IOException {
         String userHome = System.getProperty("user.home");
         if (userHome.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Cannot find user home !", "Error", JOptionPane.ERROR_MESSAGE);
@@ -50,14 +74,29 @@ public class ARMSManager {
                 ARMSApp.getApplication().exit();
             }
         }
-        File settingsFile = new File(settingsDirectory, "ARMS.config");
-        if (!settingsFile.exists()) {
-            if (!settingsFile.createNewFile()) {
+        File[] settingsFiles = new File[3];
+        settingsFiles[0] = new File(settingsDirectory, "tlist.bin");
+        if (!settingsFiles[0].exists()) {
+            if (!settingsFiles[0].createNewFile()) {
                 JOptionPane.showMessageDialog(null, "Cannot create config file !", "Error", JOptionPane.ERROR_MESSAGE);
                 ARMSApp.getApplication().exit();
             }
         }
-        return settingsFile;
+        settingsFiles[1] = new File(settingsDirectory, "slist.bin");
+        if (!settingsFiles[1].exists()) {
+            if (!settingsFiles[1].createNewFile()) {
+                JOptionPane.showMessageDialog(null, "Cannot create config file !", "Error", JOptionPane.ERROR_MESSAGE);
+                ARMSApp.getApplication().exit();
+            }
+        }
+        settingsFiles[2] = new File(settingsDirectory, "psr.bin");
+        if (!settingsFiles[2].exists()) {
+            if (!settingsFiles[2].createNewFile()) {
+                JOptionPane.showMessageDialog(null, "Cannot create config file !", "Error", JOptionPane.ERROR_MESSAGE);
+                ARMSApp.getApplication().exit();
+            }
+        }
+        return settingsFiles;
     }
 
     public static Object login(String id, String pass, Group group) throws InvalidLoginException {
@@ -93,13 +132,26 @@ public class ARMSManager {
 
     public static void update() {
         try {
-            configFile = getConfigFile();
-            FileOutputStream fos = new FileOutputStream(configFile);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(subjectList);
+            configFiles = getConfigFiles();
+            FileOutputStream fos;
+            ObjectOutputStream oos;
+            fos = new FileOutputStream(configFiles[0]);
+            oos = new ObjectOutputStream(fos);
             oos.writeObject(teacherList);
+            oos.close();
+            fos.close();
+            fos = new FileOutputStream(configFiles[1]);
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(subjectList);
+            oos.close();
+            fos.close();
+            fos = new FileOutputStream(configFiles[2]);
+            oos = new ObjectOutputStream(fos);
+            oos.writeDouble(psr);
+            oos.close();
+            fos.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Failed to write config file !", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -116,15 +168,21 @@ public class ARMSManager {
     public static int[] generateSolution() {
         int row = teacherList.size();
         int col = subjectList.size();
-        int i, j, priority, maxRow;
-        int[][] solutionTable = new int[row][col];
+        int i, j, maxRow, index;
+        double priority, seniority;
+        double[][] solutionTable = new double[row][col];
         int[] teacherIndex = new int[col];
         //fill the solution table
         for (i = 0; i < row; i++) {
             for (j = 0; j < col; j++) {
-                priority = col - teacherList.get(i).getSubjectList().indexOf(subjectList.get(j));
-                priority = priority == (col + 1) ? 0 : priority;
-                solutionTable[i][j] = priority * (teacherList.size() - i);
+                index = teacherList.get(i).getSubjectList().indexOf(subjectList.get(j));
+                if (index == -1) {
+                    solutionTable[i][j] = 0.0;
+                } else {
+                    priority = (double) (col - index) / col;
+                    seniority = (double) (row - i) / row;
+                    solutionTable[i][j] = psr * priority + seniority;
+                }
             }
         }
         //find out the maximum value in each column
@@ -136,7 +194,7 @@ public class ARMSManager {
                     maxRow = i;
                 }
             }
-            teacherIndex[j] = solutionTable[maxRow][j] == 0 ? -1 : maxRow;
+            teacherIndex[j] = (solutionTable[maxRow][j] == 0.0) ? -1 : maxRow;
         }
         return teacherIndex;
     }
@@ -145,14 +203,23 @@ public class ARMSManager {
         return subjectList;
     }
 
-    public static String getTeacher(int index) {
-        return teacherList.get(index).getName();
-    }
-
     public static ArrayList<Teacher> getTeachers() {
         return teacherList;
     }
+
+    public static Double getPSR() {
+        return psr;
+    }
+
+    public static void setPSR(String d) {
+        try {
+            psr = Double.valueOf(d);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Bad numerical value !", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     private static ArrayList<Teacher> teacherList;
     private static ArrayList<Subject> subjectList;
-    private static File configFile;
+    private static Double psr;
+    private static File[] configFiles;
 }

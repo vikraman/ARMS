@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Automatic Routine Management System
  */
 
 /*
@@ -46,7 +45,7 @@ public class AdminForm extends javax.swing.JFrame {
         downButton = new javax.swing.JButton();
         upButton = new javax.swing.JButton();
         deleteTeacherButton = new javax.swing.JButton();
-        passwdButton = new javax.swing.JButton();
+        editTeacherButton = new javax.swing.JButton();
         addTeacherButton = new javax.swing.JButton();
         nameTextField = new javax.swing.JTextField();
         idTextField = new javax.swing.JTextField();
@@ -56,10 +55,13 @@ public class AdminForm extends javax.swing.JFrame {
         subList = new javax.swing.JList();
         subLabel = new javax.swing.JLabel();
         subIdLabel = new javax.swing.JLabel();
-        addSubButton = new javax.swing.JButton();
         deleteSubButton = new javax.swing.JButton();
+        addSubButton = new javax.swing.JButton();
+        editSubButton = new javax.swing.JButton();
         subTextField = new javax.swing.JTextField();
         subIdTextField = new javax.swing.JTextField();
+        settingsPanel = new javax.swing.JPanel();
+        psrButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(arms.ARMSApp.class).getContext().getResourceMap(AdminForm.class);
@@ -99,18 +101,22 @@ public class AdminForm extends javax.swing.JFrame {
         downButton.setAction(actionMap.get("moveDown")); // NOI18N
         downButton.setText(resourceMap.getString("downButton.text")); // NOI18N
         downButton.setName("downButton"); // NOI18N
+        downButton.setEnabled(false);
 
         upButton.setAction(actionMap.get("moveUp")); // NOI18N
         upButton.setText(resourceMap.getString("upButton.text")); // NOI18N
         upButton.setName("upButton"); // NOI18N
+        upButton.setEnabled(false);
 
         deleteTeacherButton.setAction(actionMap.get("deleteTeacher")); // NOI18N
         deleteTeacherButton.setText(resourceMap.getString("deleteTeacherButton.text")); // NOI18N
         deleteTeacherButton.setName("deleteTeacherButton"); // NOI18N
+        deleteTeacherButton.setEnabled(false);
 
-        passwdButton.setText(resourceMap.getString("passwdButton.text")); // NOI18N
-        passwdButton.setEnabled(false);
-        passwdButton.setName("passwdButton"); // NOI18N
+        editTeacherButton.setAction(actionMap.get("editTeacher")); // NOI18N
+        editTeacherButton.setText(resourceMap.getString("editTeacherButton.text")); // NOI18N
+        editTeacherButton.setName("editTeacherButton"); // NOI18N
+        editTeacherButton.setEnabled(false);
 
         addTeacherButton.setAction(actionMap.get("addTeacher")); // NOI18N
         addTeacherButton.setText(resourceMap.getString("addTeacherButton.text")); // NOI18N
@@ -137,44 +143,41 @@ public class AdminForm extends javax.swing.JFrame {
             teacherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(teacherPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(teacherScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(teacherScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(teacherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(editTeacherButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
                     .addGroup(teacherPanelLayout.createSequentialGroup()
-                        .addComponent(loginLabel)
+                        .addGroup(teacherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(downButton, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+                            .addComponent(upButton, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(loginTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(teacherPanelLayout.createSequentialGroup()
-                        .addGroup(teacherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, teacherPanelLayout.createSequentialGroup()
-                                .addGroup(teacherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(upButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(downButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
-                                .addGroup(teacherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(addTeacherButton, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
-                                    .addComponent(deleteTeacherButton, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)))
-                            .addComponent(passwdButton, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))
-                        .addGap(62, 62, 62))
+                        .addGroup(teacherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(deleteTeacherButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                            .addComponent(addTeacherButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)))
                     .addGroup(teacherPanelLayout.createSequentialGroup()
                         .addGroup(teacherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(teacherPanelLayout.createSequentialGroup()
-                                .addComponent(nameLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))
-                            .addGroup(teacherPanelLayout.createSequentialGroup()
-                                .addComponent(idLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(idTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                                .addComponent(loginLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                                .addGap(4, 4, 4))
+                            .addComponent(idLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(teacherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(idTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                            .addComponent(loginTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)))
+                    .addGroup(teacherPanelLayout.createSequentialGroup()
+                        .addComponent(nameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         teacherPanelLayout.setVerticalGroup(
             teacherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(teacherPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, teacherPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(teacherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, teacherPanelLayout.createSequentialGroup()
+                .addGroup(teacherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(teacherScrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+                    .addGroup(teacherPanelLayout.createSequentialGroup()
                         .addGroup(teacherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(nameLabel)
                             .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -186,19 +189,22 @@ public class AdminForm extends javax.swing.JFrame {
                         .addGroup(teacherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(loginLabel)
                             .addComponent(loginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                         .addGroup(teacherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(upButton)
-                            .addComponent(addTeacherButton))
-                        .addGap(18, 18, 18)
+                            .addComponent(addTeacherButton)
+                            .addComponent(upButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(teacherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(downButton)
-                            .addComponent(deleteTeacherButton))
+                            .addComponent(deleteTeacherButton)
+                            .addComponent(downButton))
                         .addGap(18, 18, 18)
-                        .addComponent(passwdButton))
-                    .addComponent(teacherScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
+                        .addComponent(editTeacherButton)))
                 .addContainerGap())
         );
+
+        teacherPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {addTeacherButton, deleteTeacherButton, downButton, editTeacherButton, upButton});
+
+        teacherPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {idLabel, idTextField, loginLabel, loginTextField, nameLabel, nameTextField});
 
         adminTabbedPane.addTab(resourceMap.getString("teacherPanel.TabConstraints.tabTitle"), teacherPanel); // NOI18N
 
@@ -226,13 +232,19 @@ public class AdminForm extends javax.swing.JFrame {
         subIdLabel.setText(resourceMap.getString("subIdLabel.text")); // NOI18N
         subIdLabel.setName("subIdLabel"); // NOI18N
 
-        addSubButton.setAction(actionMap.get("deleteSubject")); // NOI18N
+        deleteSubButton.setAction(actionMap.get("deleteSubject")); // NOI18N
+        deleteSubButton.setText(resourceMap.getString("deleteSubButton.text")); // NOI18N
+        deleteSubButton.setName("deleteSubButton"); // NOI18N
+        deleteSubButton.setEnabled(false);
+
+        addSubButton.setAction(actionMap.get("addSubject")); // NOI18N
         addSubButton.setText(resourceMap.getString("addSubButton.text")); // NOI18N
         addSubButton.setName("addSubButton"); // NOI18N
 
-        deleteSubButton.setAction(actionMap.get("addSubject")); // NOI18N
-        deleteSubButton.setText(resourceMap.getString("deleteSubButton.text")); // NOI18N
-        deleteSubButton.setName("deleteSubButton"); // NOI18N
+        editSubButton.setAction(actionMap.get("editSubject")); // NOI18N
+        editSubButton.setText(resourceMap.getString("editSubButton.text")); // NOI18N
+        editSubButton.setName("editSubButton"); // NOI18N
+        editSubButton.setEnabled(false);
 
         subTextField.setEditable(false);
         subTextField.setText(resourceMap.getString("subTextField.text")); // NOI18N
@@ -250,19 +262,22 @@ public class AdminForm extends javax.swing.JFrame {
             subPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(subPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(subScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(subScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(subPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(subPanelLayout.createSequentialGroup()
-                        .addComponent(subLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(subTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))
+                        .addComponent(addSubButton, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(deleteSubButton, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))
+                    .addComponent(editSubButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
                     .addGroup(subPanelLayout.createSequentialGroup()
-                        .addComponent(subIdLabel)
+                        .addComponent(subIdLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(subIdTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE))
-                    .addComponent(addSubButton)
-                    .addComponent(deleteSubButton))
+                        .addComponent(subIdTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
+                    .addGroup(subPanelLayout.createSequentialGroup()
+                        .addComponent(subLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(subTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         subPanelLayout.setVerticalGroup(
@@ -270,6 +285,7 @@ public class AdminForm extends javax.swing.JFrame {
             .addGroup(subPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(subPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(subScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
                     .addGroup(subPanelLayout.createSequentialGroup()
                         .addGroup(subPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(subLabel)
@@ -279,20 +295,50 @@ public class AdminForm extends javax.swing.JFrame {
                             .addComponent(subIdLabel)
                             .addComponent(subIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
-                        .addComponent(deleteSubButton)
+                        .addGroup(subPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(deleteSubButton)
+                            .addComponent(addSubButton))
                         .addGap(18, 18, 18)
-                        .addComponent(addSubButton))
-                    .addComponent(subScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
+                        .addComponent(editSubButton)))
                 .addContainerGap())
         );
 
+        subPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {subIdLabel, subIdTextField, subLabel, subTextField});
+
+        subPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {addSubButton, deleteSubButton, editSubButton});
+
         adminTabbedPane.addTab(resourceMap.getString("subPanel.TabConstraints.tabTitle"), subPanel); // NOI18N
+
+        settingsPanel.setName("settingsPanel"); // NOI18N
+
+        psrButton.setAction(actionMap.get("updatePSR")); // NOI18N
+        psrButton.setText(resourceMap.getString("psrButton.text")); // NOI18N
+        psrButton.setName("psrButton"); // NOI18N
+
+        javax.swing.GroupLayout settingsPanelLayout = new javax.swing.GroupLayout(settingsPanel);
+        settingsPanel.setLayout(settingsPanelLayout);
+        settingsPanelLayout.setHorizontalGroup(
+            settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(settingsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(psrButton)
+                .addContainerGap(406, Short.MAX_VALUE))
+        );
+        settingsPanelLayout.setVerticalGroup(
+            settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(settingsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(psrButton)
+                .addContainerGap(236, Short.MAX_VALUE))
+        );
+
+        adminTabbedPane.addTab(resourceMap.getString("settingsPanel.TabConstraints.tabTitle"), settingsPanel); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(adminTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(adminTabbedPane)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -309,20 +355,33 @@ public class AdminForm extends javax.swing.JFrame {
     }
 
     @Action
+    public void updatePSR() {
+        String r = JOptionPane.showInputDialog("Update priority to seniority ratio :", ARMSManager.getPSR());
+        if (r == null || r.isEmpty()) {
+            return;
+        }
+        ARMSManager.setPSR(r);
+    }
+
+    @Action
     public void addTeacher() {
         String name = JOptionPane.showInputDialog(null, "Enter teacher name :", "Name", JOptionPane.QUESTION_MESSAGE);
-        if (name.isEmpty()) {
+        if (name == null || name.isEmpty()) {
             return;
         }
         String id = JOptionPane.showInputDialog(null, "Enter teacher id :", "ID", JOptionPane.QUESTION_MESSAGE);
-        if (id.isEmpty()) {
+        if (id == null || id.isEmpty()) {
             return;
         }
         String pass = JOptionPane.showInputDialog(null, "Enter password :", "Password", JOptionPane.QUESTION_MESSAGE);
-        if (pass.isEmpty()) {
+        if (pass == null || pass.isEmpty()) {
             return;
         }
         Teacher t = new Teacher(name, id, pass);
+        if (teachers.contains(t)) {
+            JOptionPane.showMessageDialog(null, "Teacher with same id already exists !", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         teachers.add(t);
         teacherList.setListData(teachers.toArray());
     }
@@ -334,6 +393,31 @@ public class AdminForm extends javax.swing.JFrame {
             teachers.remove(index);
             teacherList.setListData(teachers.toArray());
         }
+    }
+
+    @Action
+    public void editTeacher() {
+        int index = teacherList.getSelectedIndex();
+        Teacher t = teachers.get(index);
+        String name = JOptionPane.showInputDialog("Teacher name :", t.getName());
+        if (name == null || name.isEmpty()) {
+            return;
+        }
+        String id = JOptionPane.showInputDialog("Teacher id :", t.getId());
+        if (id == null || id.isEmpty()) {
+            return;
+        }
+        String pass = JOptionPane.showInputDialog("Password :", "");
+        if (pass == null || pass.isEmpty()) {
+            return;
+        }
+        t = new Teacher(name, id, pass);
+        if (teachers.indexOf(t) != index || teachers.lastIndexOf(t) != index) {
+            JOptionPane.showMessageDialog(null, "Teacher with same id already exists !", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        teachers.set(index, t);
+        teacherList.setListData(teachers.toArray());
     }
 
     @Action
@@ -356,15 +440,19 @@ public class AdminForm extends javax.swing.JFrame {
 
     @Action
     public void addSubject() {
-        String name = JOptionPane.showInputDialog("Enter name :");
-        if (name.isEmpty()) {
+        String name = JOptionPane.showInputDialog(null, "Enter name :", "Name", JOptionPane.QUESTION_MESSAGE);
+        if (name == null || name.isEmpty()) {
             return;
         }
-        String id = JOptionPane.showInputDialog("Enter subject id :");
-        if (id.isEmpty()) {
+        String id = JOptionPane.showInputDialog(null, "Enter subject id :", "ID", JOptionPane.QUESTION_MESSAGE);
+        if (id == null || id.isEmpty()) {
             return;
         }
         Subject s = new Subject(name, id);
+        if (subjects.contains(s)) {
+            JOptionPane.showMessageDialog(null, "Subject with same id already exists !", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         subjects.add(s);
         subList.setListData(subjects.toArray());
     }
@@ -374,7 +462,28 @@ public class AdminForm extends javax.swing.JFrame {
         int index = subList.getSelectedIndex();
         if (JOptionPane.showConfirmDialog(null, "Delete subject ?", "Delete", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             subjects.remove(index);
+            subList.setListData(subjects.toArray());
         }
+    }
+
+    @Action
+    public void editSubject() {
+        int index = subList.getSelectedIndex();
+        Subject s = subjects.get(index);
+        String name = JOptionPane.showInputDialog("Name :", s.getName());
+        if (name == null || name.isEmpty()) {
+            return;
+        }
+        String id = JOptionPane.showInputDialog("Subject id :", s.getId());
+        if (id == null || id.isEmpty()) {
+            return;
+        }
+        s = new Subject(name, id);
+        if (subjects.indexOf(s) != index || subjects.lastIndexOf(s) != index) {
+            JOptionPane.showMessageDialog(null, "Subject with same id already exists !", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        subjects.set(index, s);
         subList.setListData(subjects.toArray());
     }
 
@@ -385,6 +494,7 @@ public class AdminForm extends javax.swing.JFrame {
             deleteTeacherButton.setEnabled(false);
             upButton.setEnabled(false);
             downButton.setEnabled(false);
+            editTeacherButton.setEnabled(false);
             nameTextField.setText("");
             idTextField.setText("");
             loginTextField.setText("");
@@ -392,13 +502,14 @@ public class AdminForm extends javax.swing.JFrame {
             deleteTeacherButton.setEnabled(true);
             upButton.setEnabled(true);
             downButton.setEnabled(true);
+            editTeacherButton.setEnabled(true);
             if (selectIndex == 0) {
                 upButton.setEnabled(false);
             }
             if (selectIndex == teacherList.getModel().getSize() - 1) {
                 downButton.setEnabled(false);
             }
-            Teacher t = (Teacher) teacherList.getSelectedValue();
+            Teacher t = teachers.get(selectIndex);
             nameTextField.setText(t.getName());
             idTextField.setText(t.getId());
             loginTextField.setText(t.getLogin());
@@ -410,10 +521,12 @@ public class AdminForm extends javax.swing.JFrame {
         int selectIndex = subList.getSelectedIndex();
         if (selectIndex == -1) {
             deleteSubButton.setEnabled(false);
+            editSubButton.setEnabled(false);
             subTextField.setText("");
             subIdTextField.setText("");
         } else {
             deleteSubButton.setEnabled(true);
+            editSubButton.setEnabled(true);
             subTextField.setText(subjects.get(selectIndex).getName());
             subIdTextField.setText(subjects.get(selectIndex).getId());
         }
@@ -425,13 +538,16 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JButton deleteSubButton;
     private javax.swing.JButton deleteTeacherButton;
     private javax.swing.JButton downButton;
+    private javax.swing.JButton editSubButton;
+    private javax.swing.JButton editTeacherButton;
     private javax.swing.JLabel idLabel;
     private javax.swing.JTextField idTextField;
     private javax.swing.JLabel loginLabel;
     private javax.swing.JTextField loginTextField;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JTextField nameTextField;
-    private javax.swing.JButton passwdButton;
+    private javax.swing.JButton psrButton;
+    private javax.swing.JPanel settingsPanel;
     private javax.swing.JLabel subIdLabel;
     private javax.swing.JTextField subIdTextField;
     private javax.swing.JLabel subLabel;

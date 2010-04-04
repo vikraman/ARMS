@@ -24,7 +24,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="adminTabbedPane" alignment="0" pref="400" max="32767" attributes="0"/>
+          <Component id="adminTabbedPane" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -57,89 +57,83 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="teacherScrollPane" min="-2" pref="146" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="teacherScrollPane" pref="266" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="editTeacherButton" alignment="1" pref="221" max="32767" attributes="1"/>
                           <Group type="102" attributes="0">
-                              <Component id="loginLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="loginTextField" pref="132" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="upButton" alignment="0" max="32767" attributes="1"/>
-                                          <Component id="downButton" alignment="0" max="32767" attributes="1"/>
-                                      </Group>
-                                      <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="addTeacherButton" pref="74" max="32767" attributes="1"/>
-                                          <Component id="deleteTeacherButton" alignment="0" pref="74" max="32767" attributes="1"/>
-                                      </Group>
-                                  </Group>
-                                  <Component id="passwdButton" alignment="1" pref="163" max="32767" attributes="1"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="downButton" pref="103" max="32767" attributes="1"/>
+                                  <Component id="upButton" pref="103" max="32767" attributes="1"/>
                               </Group>
-                              <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="deleteTeacherButton" alignment="1" pref="112" max="32767" attributes="1"/>
+                                  <Component id="addTeacherButton" alignment="1" pref="112" max="32767" attributes="1"/>
+                              </Group>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="nameLabel" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="nameTextField" pref="159" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="loginLabel" pref="78" max="32767" attributes="0"/>
+                                      <EmptySpace min="4" pref="4" max="4" attributes="0"/>
                                   </Group>
-                                  <Group type="102" attributes="0">
-                                      <Component id="idLabel" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="idTextField" pref="128" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="idLabel" alignment="0" pref="82" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="idTextField" pref="127" max="32767" attributes="0"/>
+                                  <Component id="loginTextField" alignment="0" pref="127" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="nameLabel" pref="64" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="nameTextField" pref="145" max="32767" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="teacherScrollPane" alignment="0" pref="249" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="nameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="nameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="nameLabel" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="nameTextField" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="idLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="idTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="idLabel" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="idTextField" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="loginLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="loginTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="loginLabel" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="loginTextField" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="57" max="32767" attributes="0"/>
+                              <EmptySpace pref="63" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="upButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="addTeacherButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="addTeacherButton" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="upButton" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="deleteTeacherButton" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="downButton" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="downButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="deleteTeacherButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                              <Component id="passwdButton" min="-2" max="-2" attributes="0"/>
+                              <Component id="editTeacherButton" linkSize="1" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="teacherScrollPane" alignment="0" pref="249" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -194,6 +188,9 @@
                 <Property name="text" type="java.lang.String" resourceKey="downButton.text"/>
                 <Property name="name" type="java.lang.String" value="downButton" noResource="true"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="downButton.setEnabled(false);"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JButton" name="upButton">
               <Properties>
@@ -203,6 +200,9 @@
                 <Property name="text" type="java.lang.String" resourceKey="upButton.text"/>
                 <Property name="name" type="java.lang.String" value="upButton" noResource="true"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="upButton.setEnabled(false);"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JButton" name="deleteTeacherButton">
               <Properties>
@@ -212,13 +212,21 @@
                 <Property name="text" type="java.lang.String" resourceKey="deleteTeacherButton.text"/>
                 <Property name="name" type="java.lang.String" value="deleteTeacherButton" noResource="true"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="deleteTeacherButton.setEnabled(false);"/>
+              </AuxValues>
             </Component>
-            <Component class="javax.swing.JButton" name="passwdButton">
+            <Component class="javax.swing.JButton" name="editTeacherButton">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="passwdButton.text"/>
-                <Property name="enabled" type="boolean" value="false"/>
-                <Property name="name" type="java.lang.String" value="passwdButton" noResource="true"/>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="arms.AdminForm" id="editTeacher" methodName="editTeacher"/>
+                </Property>
+                <Property name="text" type="java.lang.String" resourceKey="editTeacherButton.text"/>
+                <Property name="name" type="java.lang.String" value="editTeacherButton" noResource="true"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="editTeacherButton.setEnabled(false);"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JButton" name="addTeacherButton">
               <Properties>
@@ -279,47 +287,54 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="subScrollPane" min="-2" pref="146" max="-2" attributes="0"/>
+                      <Component id="subScrollPane" pref="259" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="subLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="subTextField" pref="149" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="addSubButton" pref="111" max="32767" attributes="0"/>
+                              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                              <Component id="deleteSubButton" pref="111" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="subIdLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="editSubButton" alignment="1" pref="234" max="32767" attributes="2"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="subIdLabel" pref="74" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="subIdTextField" pref="131" max="32767" attributes="0"/>
+                              <Component id="subIdTextField" pref="148" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="addSubButton" min="-2" max="-2" attributes="0"/>
-                          <Component id="deleteSubButton" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="subLabel" pref="56" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="subTextField" pref="166" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="subScrollPane" alignment="0" pref="249" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="subLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="subTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="subLabel" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="subTextField" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="subIdLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="subIdTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="subIdLabel" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="subIdTextField" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="133" max="32767" attributes="0"/>
-                              <Component id="deleteSubButton" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="deleteSubButton" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="addSubButton" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="addSubButton" min="-2" max="-2" attributes="0"/>
+                              <Component id="editSubButton" linkSize="4" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="subScrollPane" alignment="0" pref="249" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -362,23 +377,38 @@
                 <Property name="name" type="java.lang.String" value="subIdLabel" noResource="true"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="addSubButton">
+            <Component class="javax.swing.JButton" name="deleteSubButton">
               <Properties>
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
                   <action class="arms.AdminForm" id="deleteSubject" methodName="deleteSubject"/>
+                </Property>
+                <Property name="text" type="java.lang.String" resourceKey="deleteSubButton.text"/>
+                <Property name="name" type="java.lang.String" value="deleteSubButton" noResource="true"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="deleteSubButton.setEnabled(false);"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JButton" name="addSubButton">
+              <Properties>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="arms.AdminForm" id="addSubject" methodName="addSubject"/>
                 </Property>
                 <Property name="text" type="java.lang.String" resourceKey="addSubButton.text"/>
                 <Property name="name" type="java.lang.String" value="addSubButton" noResource="true"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="deleteSubButton">
+            <Component class="javax.swing.JButton" name="editSubButton">
               <Properties>
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
-                  <action class="arms.AdminForm" id="addSubject" methodName="addSubject"/>
+                  <action class="arms.AdminForm" id="editSubject" methodName="editSubject"/>
                 </Property>
-                <Property name="text" type="java.lang.String" resourceKey="deleteSubButton.text"/>
-                <Property name="name" type="java.lang.String" value="deleteSubButton" noResource="true"/>
+                <Property name="text" type="java.lang.String" resourceKey="editSubButton.text"/>
+                <Property name="name" type="java.lang.String" value="editSubButton" noResource="true"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="editSubButton.setEnabled(false);"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="subTextField">
               <Properties>
@@ -398,6 +428,50 @@
                   <Border info="null"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="subIdTextField" noResource="true"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="settingsPanel">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="settingsPanel" noResource="true"/>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="Settings">
+                <Property name="tabTitle" type="java.lang.String" resourceKey="settingsPanel.TabConstraints.tabTitle"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="psrButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="406" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="psrButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="236" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JButton" name="psrButton">
+              <Properties>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="arms.AdminForm" id="updatePSR" methodName="updatePSR"/>
+                </Property>
+                <Property name="text" type="java.lang.String" resourceKey="psrButton.text"/>
+                <Property name="name" type="java.lang.String" value="psrButton" noResource="true"/>
               </Properties>
             </Component>
           </SubComponents>

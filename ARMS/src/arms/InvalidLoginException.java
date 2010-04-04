@@ -1,8 +1,6 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Automatic Routine Management System
  */
-
 package arms;
 
 /**
@@ -16,7 +14,6 @@ public class InvalidLoginException extends Exception {
      */
     public InvalidLoginException() {
     }
-
 
     /**
      * Constructs an instance of <code>InvalidLoginException</code> with the specified detail message.
