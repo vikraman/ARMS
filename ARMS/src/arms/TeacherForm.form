@@ -32,7 +32,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="nameLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="nameTextField" min="-2" max="-2" attributes="0"/>
+                      <Component id="nameTextField" pref="916" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" max="-2" attributes="0">
                       <Component id="subSelectScrollPane" linkSize="18" min="-2" pref="396" max="-2" attributes="2"/>
@@ -60,15 +60,15 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="loginLabel" min="-2" max="-2" attributes="1"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="loginTextField" min="-2" max="-2" attributes="0"/>
+                      <Component id="loginTextField" pref="892" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="idLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="idTextField" min="-2" max="-2" attributes="0"/>
+                      <Component id="idTextField" pref="885" max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -76,7 +76,24 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" max="-2" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="nameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="nameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="idLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="idTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="loginLabel" min="-2" max="-2" attributes="0"/>
+                  <Component id="loginTextField" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="subListScrollPane" linkSize="20" alignment="1" min="-2" max="-2" attributes="1"/>
+                  <Component id="subSelectScrollPane" linkSize="20" alignment="1" min="-2" pref="351" max="-2" attributes="1"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="upButton" linkSize="2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
@@ -88,27 +105,6 @@
                       <Component id="downButton" linkSize="2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
                       <Component id="logoutButton" linkSize="2" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="nameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="nameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="idLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="idTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="loginTextField" min="-2" max="-2" attributes="0"/>
-                          <Component id="loginLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="subListScrollPane" linkSize="20" min="-2" max="-2" attributes="1"/>
-                          <Component id="subSelectScrollPane" linkSize="20" min="-2" pref="351" max="-2" attributes="1"/>
-                      </Group>
                   </Group>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
