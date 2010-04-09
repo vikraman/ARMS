@@ -62,18 +62,6 @@
                       <Component id="teacherScrollPane" pref="266" max="32767" attributes="0"/>
                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="editTeacherButton" alignment="1" pref="221" max="32767" attributes="1"/>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="downButton" pref="103" max="32767" attributes="1"/>
-                                  <Component id="upButton" pref="103" max="32767" attributes="1"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="deleteTeacherButton" alignment="1" pref="112" max="32767" attributes="1"/>
-                                  <Component id="addTeacherButton" alignment="1" pref="112" max="32767" attributes="1"/>
-                              </Group>
-                          </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
@@ -92,6 +80,19 @@
                               <Component id="nameLabel" pref="64" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="nameTextField" pref="145" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="editTeacherButton" alignment="0" pref="103" max="32767" attributes="1"/>
+                                  <Component id="downButton" alignment="0" pref="103" max="32767" attributes="1"/>
+                                  <Component id="upButton" alignment="0" pref="103" max="32767" attributes="1"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="deleteTeacherButton" alignment="1" pref="112" max="32767" attributes="1"/>
+                                  <Component id="addTeacherButton" alignment="1" pref="112" max="32767" attributes="1"/>
+                                  <Component id="listButton" alignment="0" pref="112" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -130,7 +131,10 @@
                                   <Component id="downButton" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="editTeacherButton" linkSize="1" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="editTeacherButton" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="listButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -267,6 +271,18 @@
                 <Property name="name" type="java.lang.String" value="loginTextField" noResource="true"/>
               </Properties>
             </Component>
+            <Component class="javax.swing.JButton" name="listButton">
+              <Properties>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="arms.AdminForm" id="listPreference" methodName="listPreference"/>
+                </Property>
+                <Property name="text" type="java.lang.String" resourceKey="listButton.text"/>
+                <Property name="name" type="java.lang.String" value="listButton" noResource="true"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="listButton.setEnabled(false);"/>
+              </AuxValues>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="subPanel">
@@ -287,24 +303,29 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="subScrollPane" pref="259" max="32767" attributes="0"/>
+                      <Component id="subScrollPane" pref="258" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="addSubButton" pref="111" max="32767" attributes="0"/>
-                              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                              <Component id="deleteSubButton" pref="111" max="32767" attributes="0"/>
-                          </Group>
-                          <Component id="editSubButton" alignment="1" pref="234" max="32767" attributes="2"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="subIdLabel" pref="74" max="32767" attributes="0"/>
+                              <Component id="subIdLabel" pref="75" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="subIdTextField" pref="148" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="subLabel" pref="56" max="32767" attributes="0"/>
+                              <Component id="subLabel" pref="57" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="subTextField" pref="166" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="editSubButton" alignment="0" pref="110" max="32767" attributes="2"/>
+                                  <Component id="addSubButton" alignment="0" pref="110" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="listTeacherButton" max="32767" attributes="0"/>
+                                  <Component id="deleteSubButton" alignment="0" pref="113" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -333,7 +354,10 @@
                                   <Component id="addSubButton" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="editSubButton" linkSize="4" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="editSubButton" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="listTeacherButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -429,6 +453,109 @@
                 </Property>
                 <Property name="name" type="java.lang.String" value="subIdTextField" noResource="true"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="listTeacherButton">
+              <Properties>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="arms.AdminForm" id="listTeachers" methodName="listTeachers"/>
+                </Property>
+                <Property name="text" type="java.lang.String" resourceKey="listTeacherButton.text"/>
+                <Property name="name" type="java.lang.String" value="listTeacherButton" noResource="true"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="listTeacherButton.setEnabled(false);"/>
+              </AuxValues>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="solutionPanel">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="solutionPanel" noResource="true"/>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="Solution">
+                <Property name="tabTitle" type="java.lang.String" resourceKey="solutionPanel.TabConstraints.tabTitle"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="discardSolutionButton" alignment="0" max="32767" attributes="1"/>
+                          <Component id="viewSolutionButton" alignment="0" max="32767" attributes="1"/>
+                          <Component id="viewNewSolutionButton" alignment="0" max="32767" attributes="1"/>
+                          <Component id="writeSolutionButton" alignment="0" max="32767" attributes="1"/>
+                      </Group>
+                      <EmptySpace pref="349" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="viewSolutionButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="viewNewSolutionButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="writeSolutionButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="discardSolutionButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="107" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JButton" name="viewSolutionButton">
+              <Properties>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="arms.AdminForm" id="viewSolution" methodName="viewSolution"/>
+                </Property>
+                <Property name="text" type="java.lang.String" resourceKey="viewSolutionButton.text"/>
+                <Property name="name" type="java.lang.String" value="viewSolutionButton" noResource="true"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="viewNewSolutionButton">
+              <Properties>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="arms.AdminForm" id="viewNewSolution" methodName="viewNewSolution"/>
+                </Property>
+                <Property name="text" type="java.lang.String" resourceKey="viewNewSolutionButton.text"/>
+                <Property name="name" type="java.lang.String" value="viewNewSolutionButton" noResource="true"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="viewNewSolutionButton.setEnabled(!flag);"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JButton" name="writeSolutionButton">
+              <Properties>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="arms.AdminForm" id="writeSolution" methodName="writeSolution"/>
+                </Property>
+                <Property name="text" type="java.lang.String" resourceKey="writeSolutionButton.text"/>
+                <Property name="name" type="java.lang.String" value="writeSolutionButton" noResource="true"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="writeSolutionButton.setEnabled(!flag);"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JButton" name="discardSolutionButton">
+              <Properties>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+                  <action class="arms.AdminForm" id="discardSolution" methodName="discardSolution"/>
+                </Property>
+                <Property name="text" type="java.lang.String" resourceKey="discardSolutionButton.text"/>
+                <Property name="name" type="java.lang.String" value="discardSolutionButton" noResource="true"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="discardSolutionButton.setEnabled(!flag);"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

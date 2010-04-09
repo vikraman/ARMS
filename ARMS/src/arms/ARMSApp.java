@@ -21,7 +21,7 @@ public class ARMSApp extends SingleFrameApplication {
 
     @Override
     protected void shutdown() {
-        ARMSManager.update();
+        ARMSManager.shutdown();
         super.shutdown();
     }
 
@@ -46,7 +46,7 @@ public class ARMSApp extends SingleFrameApplication {
      * Main method launching the application.
      */
     public static void main(String[] args) {
-        new ARMSManager();
+        ARMSManager.startup();
         launch(ARMSApp.class, args);
     }
 }

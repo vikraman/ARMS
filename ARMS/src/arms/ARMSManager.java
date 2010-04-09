@@ -22,53 +22,69 @@ import javax.swing.JOptionPane;
  */
 public class ARMSManager {
 
-    public ARMSManager() {
+    public static void startup() {
+        new ARMSManager();
         try {
-            configFiles = getConfigFiles();
+            File configFile;
             FileInputStream fis;
             ObjectInputStream ois;
-            if (configFiles[0].length() == 0) {
+            configFile = getConfigFile("tlist.bin");
+            if (configFile.length() == 0) {
                 teacherList = new ArrayList<Teacher>();
             } else {
-                fis = new FileInputStream(configFiles[0]);
+                fis = new FileInputStream(configFile);
                 ois = new ObjectInputStream(fis);
                 teacherList = (ArrayList<Teacher>) ois.readObject();
                 ois.close();
                 fis.close();
             }
-            if (configFiles[1].length() == 0) {
+            configFile = getConfigFile("slist.bin");
+            if (configFile.length() == 0) {
                 subjectList = new ArrayList<Subject>();
             } else {
-                fis = new FileInputStream(configFiles[1]);
+                fis = new FileInputStream(configFile);
                 ois = new ObjectInputStream(fis);
                 subjectList = (ArrayList<Subject>) ois.readObject();
                 ois.close();
                 fis.close();
             }
-            if (configFiles[2].length() == 0) {
+            configFile = getConfigFile("psr.bin");
+            if (configFile.length() == 0) {
                 psr = 2.0;
             } else {
-                fis = new FileInputStream(configFiles[2]);
+                fis = new FileInputStream(configFile);
                 ois = new ObjectInputStream(fis);
                 psr = ois.readDouble();
                 ois.close();
                 fis.close();
             }
-            if (configFiles[3].length() == 0) {
+            configFile = getConfigFile("admin.bin");
+            if (configFile.length() == 0) {
                 adminPass = "admin".hashCode();
             } else {
-                fis = new FileInputStream(configFiles[3]);
+                fis = new FileInputStream(configFile);
                 ois = new ObjectInputStream(fis);
                 adminPass = ois.readLong();
                 ois.close();
                 fis.close();
             }
-            if (configFiles[4].length() == 0) {
+            configFile = getConfigFile("user.bin");
+            if (configFile.length() == 0) {
                 userPass = "user".hashCode();
             } else {
-                fis = new FileInputStream(configFiles[4]);
+                fis = new FileInputStream(configFile);
                 ois = new ObjectInputStream(fis);
                 userPass = ois.readLong();
+                ois.close();
+                fis.close();
+            }
+            configFile = getConfigFile("solution.bin");
+            if (configFile.length() == 0) {
+                solution = new ARMSSolution();
+            } else {
+                fis = new FileInputStream(configFile);
+                ois = new ObjectInputStream(fis);
+                solution = (ARMSSolution) ois.readObject();
                 ois.close();
                 fis.close();
             }
@@ -78,7 +94,7 @@ public class ARMSManager {
         }
     }
 
-    public static File[] getConfigFiles() throws IOException {
+    public static File getConfigFile(String filename) throws IOException {
         String userHome = System.getProperty("user.home");
         if (userHome.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Cannot find user home !", "Error", JOptionPane.ERROR_MESSAGE);
@@ -92,56 +108,28 @@ public class ARMSManager {
                 ARMSApp.getApplication().exit();
             }
         }
-        File[] settingsFiles = new File[5];
-        settingsFiles[0] = new File(settingsDirectory, "tlist.bin");
-        if (!settingsFiles[0].exists()) {
-            if (!settingsFiles[0].createNewFile()) {
+        File settingsFile = new File(settingsDirectory, filename);
+        if (!settingsFile.exists()) {
+            if (!settingsFile.createNewFile()) {
                 JOptionPane.showMessageDialog(null, "Cannot create config file !", "Error", JOptionPane.ERROR_MESSAGE);
                 ARMSApp.getApplication().exit();
             }
         }
-        settingsFiles[1] = new File(settingsDirectory, "slist.bin");
-        if (!settingsFiles[1].exists()) {
-            if (!settingsFiles[1].createNewFile()) {
-                JOptionPane.showMessageDialog(null, "Cannot create config file !", "Error", JOptionPane.ERROR_MESSAGE);
-                ARMSApp.getApplication().exit();
-            }
-        }
-        settingsFiles[2] = new File(settingsDirectory, "psr.bin");
-        if (!settingsFiles[2].exists()) {
-            if (!settingsFiles[2].createNewFile()) {
-                JOptionPane.showMessageDialog(null, "Cannot create config file !", "Error", JOptionPane.ERROR_MESSAGE);
-                ARMSApp.getApplication().exit();
-            }
-        }
-        settingsFiles[3] = new File(settingsDirectory, "admin.bin");
-        if (!settingsFiles[3].exists()) {
-            if (!settingsFiles[3].createNewFile()) {
-                JOptionPane.showMessageDialog(null, "Cannot create config file !", "Error", JOptionPane.ERROR_MESSAGE);
-                ARMSApp.getApplication().exit();
-            }
-        }
-        settingsFiles[4] = new File(settingsDirectory, "user.bin");
-        if (!settingsFiles[4].exists()) {
-            if (!settingsFiles[4].createNewFile()) {
-                JOptionPane.showMessageDialog(null, "Cannot create config file !", "Error", JOptionPane.ERROR_MESSAGE);
-                ARMSApp.getApplication().exit();
-            }
-        }
-        return settingsFiles;
+        return settingsFile;
     }
 
     public static Object login(String id, String pass, Group group) throws InvalidLoginException {
         switch (group) {
             case User:
                 if (id.equals("user") && pass.hashCode() == userPass) {
-                    ARMSOutput aRMSOutput = new ARMSOutput(ARMSManager.generateSolution());
+                    ARMSOutput aRMSOutput = new ARMSOutput(solution, javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
                     aRMSOutput.setLocationRelativeTo(ARMSApp.getApplication().getMainFrame());
                     ARMSApp.getApplication().getMainFrame().setVisible(false);
                     aRMSOutput.setVisible(true);
                     return null;
                 }
                 break;
+
             case Teacher:
                 for (Teacher t : teacherList) {
                     if (t.validate(id, pass)) {
@@ -149,9 +137,10 @@ public class ARMSManager {
                     }
                 }
                 break;
+
             case Administrator:
                 if (id.equals("admin") && pass.hashCode() == adminPass) {
-                    AdminForm adminForm = new AdminForm(teacherList, subjectList);
+                    AdminForm adminForm = new AdminForm(teacherList, subjectList, new ARMSSolution().equals(solution));
                     adminForm.setLocationRelativeTo(ARMSApp.getApplication().getMainFrame());
                     ARMSApp.getApplication().getMainFrame().setVisible(false);
                     adminForm.setVisible(true);
@@ -162,34 +151,52 @@ public class ARMSManager {
         throw new InvalidLoginException("Invalid user ID and password combination!");
     }
 
-    public static void update() {
+    public static void shutdown() {
         try {
-            configFiles = getConfigFiles();
+            File configFile;
             FileOutputStream fos;
             ObjectOutputStream oos;
-            fos = new FileOutputStream(configFiles[0]);
+            ARMSSolution newSolution = new ARMSSolution();
+            configFile = getConfigFile("tlist.bin");
+            if (!solution.equals(newSolution)) {
+                configFile.renameTo(getConfigFile("tlist.bin.bak"));
+            }
+            fos = new FileOutputStream(configFile);
             oos = new ObjectOutputStream(fos);
             oos.writeObject(teacherList);
             oos.close();
             fos.close();
-            fos = new FileOutputStream(configFiles[1]);
+            configFile = getConfigFile("slist.bin");
+            if (!solution.equals(newSolution)) {
+                configFile.renameTo(getConfigFile("slist.bin.bak"));
+            }
+            fos = new FileOutputStream(configFile);
             oos = new ObjectOutputStream(fos);
             oos.writeObject(subjectList);
             oos.close();
             fos.close();
-            fos = new FileOutputStream(configFiles[2]);
+            configFile = getConfigFile("psr.bin");
+            fos = new FileOutputStream(configFile);
             oos = new ObjectOutputStream(fos);
             oos.writeDouble(psr);
             oos.close();
             fos.close();
-            fos = new FileOutputStream(configFiles[3]);
+            configFile = getConfigFile("admin.bin");
+            fos = new FileOutputStream(configFile);
             oos = new ObjectOutputStream(fos);
             oos.writeLong(adminPass);
             oos.close();
             fos.close();
-            fos = new FileOutputStream(configFiles[4]);
+            configFile = getConfigFile("user.bin");
+            fos = new FileOutputStream(configFile);
             oos = new ObjectOutputStream(fos);
             oos.writeLong(userPass);
+            oos.close();
+            fos.close();
+            configFile = getConfigFile("solution.bin");
+            fos = new FileOutputStream(configFile);
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(solution);
             oos.close();
             fos.close();
         } catch (Exception e) {
@@ -207,38 +214,70 @@ public class ARMSManager {
         return availSubjectList;
     }
 
-    public static int[] generateSolution() {
-        int row = teacherList.size();
-        int col = subjectList.size();
-        int i, j, maxRow, index;
-        double priority, seniority;
-        double[][] solutionTable = new double[row][col];
-        int[] teacherIndex = new int[col];
-        //fill the solution table
-        for (i = 0; i < row; i++) {
-            for (j = 0; j < col; j++) {
-                index = teacherList.get(i).getSubjectList().indexOf(subjectList.get(j));
-                if (index == -1) {
-                    solutionTable[i][j] = 0.0;
-                } else {
-                    priority = (double) (col - index) / col;
-                    seniority = (double) (row - i) / row;
-                    solutionTable[i][j] = psr * priority + seniority;
-                }
-            }
+    public static ARMSSolution getSolution() {
+        return solution;
+    }
+
+    public static ARMSSolution getNewSolution() {
+        return new ARMSSolution();
+    }
+
+    public static void updateSolution() {
+        solution = new ARMSSolution();
+        try {
+            File configFile;
+            configFile = getConfigFile("tlist.bin.bak");
+            configFile.delete();
+            configFile = getConfigFile("slist.bin.bak");
+            configFile.delete();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Failed to write config file !", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        //find out the maximum value in each column
-        //assume subjects are more than teachers
-        for (j = 0; j < col; j++) {
-            maxRow = 0;
-            for (i = 1; i < row; i++) {
-                if (solutionTable[i][j] > solutionTable[maxRow][j]) {
-                    maxRow = i;
-                }
+    }
+
+    public static void discardSolution() {
+        try {
+            File configFile;
+            FileInputStream fis;
+            ObjectInputStream ois;
+            configFile = getConfigFile("tlist.bin.bak");
+            if (configFile.length() == 0) {
+                configFile.delete();
+                configFile = getConfigFile("tlist.bin");
+                fis = new FileInputStream(configFile);
+                ois = new ObjectInputStream(fis);
+                teacherList = (ArrayList<Teacher>) ois.readObject();
+                ois.close();
+                fis.close();
+            } else {
+                fis = new FileInputStream(configFile);
+                ois = new ObjectInputStream(fis);
+                teacherList = (ArrayList<Teacher>) ois.readObject();
+                ois.close();
+                fis.close();
+                configFile.delete();
             }
-            teacherIndex[j] = (solutionTable[maxRow][j] == 0.0) ? -1 : maxRow;
+            configFile = getConfigFile("slist.bin.bak");
+            if (configFile.length() == 0) {
+                configFile.delete();
+                configFile = getConfigFile("slist.bin");
+                fis = new FileInputStream(configFile);
+                ois = new ObjectInputStream(fis);
+                subjectList = (ArrayList<Subject>) ois.readObject();
+                ois.close();
+                fis.close();
+            } else {
+                fis = new FileInputStream(configFile);
+                ois = new ObjectInputStream(fis);
+                subjectList = (ArrayList<Subject>) ois.readObject();
+                ois.close();
+                fis.close();
+                configFile.delete();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Failed to read backup config file !", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        return teacherIndex;
     }
 
     public static ArrayList<Subject> getSubjects() {
@@ -279,7 +318,7 @@ public class ARMSManager {
     private static ArrayList<Teacher> teacherList;
     private static ArrayList<Subject> subjectList;
     private static Double psr;
-    private static File[] configFiles;
+    private static ARMSSolution solution;
     private static long adminPass;
     private static long userPass;
 }
